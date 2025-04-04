@@ -265,12 +265,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pcontrol: {fileID: 140993382}
-  m_offset: {x: 0, y: 3, z: 0}
-  m_rotate_keys: 77000000610000007300000064000000
-  m_distance: 10
-  m_speed_angle: 30
-  m_distance_min: 4
-  m_distance_max: 100
+  speed_angle: 0.7
+  distance: 10
+  distance_min: 0
+  distance_max: 100
 --- !u!114 &140993390
 MonoBehaviour:
   m_ObjectHideFlags: 0

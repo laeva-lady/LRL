@@ -7,56 +7,55 @@ public class CameraControl : MonoBehaviour
 
     [SerializeField] PlayerController pcontrol;
 
-    [SerializeField] Vector3 m_offset = new(4, 1, 0);
-    [SerializeField] KeyCode[] m_rotate_keys = new KeyCode[] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
-    [SerializeField] float m_distance = 10;
-    [SerializeField] float m_speed_angle = 30;
-    [SerializeField] float m_distance_min = 0;
-    [SerializeField] float m_distance_max = 0;
+    [SerializeField] float speed_angle = 0.7f; // around 0.7 is a good middle spot me thinks
+    [SerializeField] float distance = 10;
+    [SerializeField] float distance_min = 0;
+    [SerializeField] float distance_max = 0;
 
     Camera cam;
     GameObject player;
+
+    Vector3 offset;
+    Vector3 top_of_player;
 
     void Start()
     {
         cam = pcontrol.GetCamera();
         player = pcontrol.GetPlayer();
 
-        cam.transform.position = player.transform.position + m_offset + (-cam.transform.forward * m_distance);
+        cam.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+        offset = Vector3.up * distance;
+        top_of_player = player.transform.position + offset;
+        cam.transform.position = top_of_player;
     }
 
     void Update()
     {
-        MoveCamera();
-        RotateCamera();
-        UpdateDistanceCamera();
+        Rotation();
+        Move();
+        Distance();
     }
 
-    void MoveCamera()
+    void Rotation() {
+        cam.transform.LookAt(player.transform);
+    }
+
+    void Move()
     {
-        cam.transform.position = player.transform.position + m_offset + (-cam.transform.forward * m_distance);
+        top_of_player = player.transform.position + offset;
+        cam.transform.position = Vector3.Lerp(cam.transform.position, top_of_player, speed_angle * Time.deltaTime);
     }
 
-    void RotateCamera()
-    {
-        if (Input.GetKey(m_rotate_keys[0])) // w
-            cam.transform.RotateAround(player.transform.position + m_offset, cam.transform.right, -m_speed_angle * Time.deltaTime);
-        if (Input.GetKey(m_rotate_keys[1])) // a
-            cam.transform.RotateAround(player.transform.position + m_offset, Vector3.up, -m_speed_angle * Time.deltaTime);
-        if (Input.GetKey(m_rotate_keys[2])) // s
-            cam.transform.RotateAround(player.transform.position + m_offset, cam.transform.right, m_speed_angle * Time.deltaTime);
-        if (Input.GetKey(m_rotate_keys[3])) // d
-            cam.transform.RotateAround(player.transform.position + m_offset, Vector3.up, m_speed_angle * Time.deltaTime);
-        cam.transform.LookAt(player.transform.position + m_offset);
-    }
-
-    void UpdateDistanceCamera()
+    void Distance()
     {
         var scroll = Input.mouseScrollDelta.y;
         if (Input.GetKey(KeyCode.LeftControl))
             scroll *= 5;
-        m_distance -= scroll;
-        if (m_distance < m_distance_min) m_distance = m_distance_min;
-        if (m_distance > m_distance_max) m_distance = m_distance_max;
+        distance -= scroll;
+        if (distance < distance_min) distance = distance_min;
+        if (distance > distance_max) distance = distance_max;
+
+        offset = Vector3.up * distance;
     }
 }

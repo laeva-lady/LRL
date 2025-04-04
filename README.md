@@ -1,8 +1,14 @@
+
+
+---
+
+
 # goal
 
 
 
 # task
+- [ ] replace the tiger with something else perhaps, ware ga omoimasu
 - [x] make top down view like league
 - [x] implement movement
 - [x] implement camera scroll to change distance
