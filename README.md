@@ -6,8 +6,14 @@
 # goal
 
 
+# FUCK THE TIGER
+- [ ] make ball instead
+- [ ] wasd propulse the ball relative to the camera
+
+
 
 # task
+- [ ] add settings menu
 - [ ] replace the tiger with something else perhaps, ware ga omoimasu
 - [x] make top down view like league
 - [x] implement movement
@@ -16,6 +22,12 @@
 - [ ] GAVE UP | figure out how to make the tiger use their animation
 - [ ] make powers for the tiger
 - [ ] make a map
+
+# abilities
+- currently , `Q` launch a fireball
+- [ ] press key to preview thing
+- [ ] press `space` to lauch thing
+- [ ] change indicator based on abilities
 
 # effects
 - [x] rectangle that follow mouse cursor (raycast'd on the map)
