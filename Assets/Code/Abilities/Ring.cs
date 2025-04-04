@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireball : MonoBehaviour
+public class Ring : MonoBehaviour
 {
     [SerializeField] GameObject m_fireball_prefab;
     [SerializeField] GameObject m_spawn_point;

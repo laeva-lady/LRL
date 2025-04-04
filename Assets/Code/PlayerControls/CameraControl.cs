@@ -8,7 +8,6 @@ public class CameraControl : MonoBehaviour
     [SerializeField] PlayerController pcontrol;
 
     [SerializeField] float speed_rotation = 5f; // around 0.7 is a good middle spot me thinks
-    [SerializeField] float speed_follow = 5f;
     [SerializeField] float distance = 10;
     [SerializeField] float distance_min = 0;
     [SerializeField] float distance_max = 0;
