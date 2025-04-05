@@ -11,7 +11,10 @@ public class CameraControl : MonoBehaviour
     [SerializeField] float distance = 10;
     [SerializeField] float distance_min = 0;
     [SerializeField] float distance_max = 0;
-    [SerializeField] Vector3 offset = new(0, 2, 0);
+    [SerializeField] float vertical_offset = 2;
+
+    [SerializeField] float min_camera_angle = -30;
+    [SerializeField] float max_camera_angle = 89;
 
 
     Camera cam;
@@ -45,19 +48,19 @@ public class CameraControl : MonoBehaviour
     {
         yaw += Input.GetAxis("Mouse X") * speed_rotation;
         pitch -= Input.GetAxis("Mouse Y") * speed_rotation;
-        pitch = Mathf.Clamp(pitch, 0f, 80f);
+        pitch = Mathf.Clamp(pitch, min_camera_angle, max_camera_angle);
     }
 
     void Move()
     {
-        Vector3 direction = new Vector3(0, 0, -distance);
+        Vector3 direction = new(0, 0, -distance);
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
-        Vector3 desiredPosition = player.transform.position + offset + rotation * direction;
+        Vector3 desiredPosition = player.transform.position + Vector3.up * vertical_offset + rotation * direction;
 
         // Smoothly move camera
         // cam.transform.position = Vector3.Lerp(cam.transform.position, desiredPosition, Time.deltaTime * speed_follow);
         cam.transform.position = desiredPosition;
-        cam.transform.LookAt(player.transform.position + offset); // Always look at the player
+        cam.transform.LookAt(player.transform.position + Vector3.up * vertical_offset); // Always look at the player
     }
 
     void Distance()

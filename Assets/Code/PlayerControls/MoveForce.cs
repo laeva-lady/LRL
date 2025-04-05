@@ -7,11 +7,15 @@ public class MoveForce : MonoBehaviour
     [SerializeField] PlayerController pcontrol;
     [SerializeField] float force_strength;
 
+    [SerializeField] float groundCheckDistance = 0.1f;
+    [SerializeField] LayerMask groundLayer;
+
     Camera cam;
     GameObject player;
     Rigidbody prigid;
 
-    readonly List<(KeyCode, Vector3)> kvap = new List<(KeyCode, Vector3)>{
+    readonly List<(KeyCode, Vector3)> kvap = new()
+    {
         (KeyCode.W, Vector3.forward),
         (KeyCode.A, Vector3.left),
         (KeyCode.S, Vector3.back),
@@ -27,6 +31,7 @@ public class MoveForce : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!IsGrounded()) return;
         Vector3 force = Vector3.zero;
 
         foreach (var (k, direction) in kvap)
@@ -57,6 +62,11 @@ public class MoveForce : MonoBehaviour
             prigid.AddForce(force_strength * force);
 
 
+    }
+
+    bool IsGrounded()
+    {
+        return Physics.Raycast(player.transform.position, Vector3.down, groundCheckDistance, groundLayer);
     }
 
 }

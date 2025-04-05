@@ -19,10 +19,11 @@ public class AlignIndicatorwithcamera : MonoBehaviour
     void Update()
     {
         var direction = cam.transform.rotation;
-        var indicator_direction = direction * Quaternion.Euler(0, 360, 0);;
+        var indicator_direction = direction * Quaternion.Euler(0, 360, 0); ;
         var indangle = indicator_direction.eulerAngles;
         indangle.x = 0;
         indangle.z = 0;
+
         indicator.transform.rotation = Quaternion.Euler(indangle);
     }
 }
